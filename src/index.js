@@ -19,7 +19,11 @@ app.set("views", "view")
 
 
 const loginRoute = require("../controller/loginCotroller")
-app.use("/admin" , loginRoute)
+const OrderRoute = require("../controller/orderController")
+const CustomerRoute = require("../controller/customerController")
+
+app.use("/admin" , [loginRoute,OrderRoute, CustomerRoute])
+
 
 const server = http.createServer(app)
 

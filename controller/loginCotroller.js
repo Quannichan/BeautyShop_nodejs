@@ -18,12 +18,18 @@ Router.post("/login/auth", async (req, res) =>{
     const pass = req.body.password
     const [error, status, usname] = await login(email, pass)
     if(error){
-        const error = "Wrong information!"
+        const error = "Error, Cannot connect to server!"
         res.render("./index", {error})
     }else{
-        req.session.usname = usname
-        req.session.islogin = status
-        res.redirect("/admin/home")
+        if(status){
+            req.session.usname = usname
+            req.session.islogin = status
+            res.redirect("/admin/home")
+        }else{
+            const error = "Wrong information!"
+            res.render("./index", {error})
+        }
+        
     }
 
 })
