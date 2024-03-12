@@ -109,7 +109,7 @@ function saveEdit(id_cus,id){
         success : function(data){
             if(data.status){
                 alert("Cập nhật thành công!")
-                window.location.href = "http://localhost:3000/admin/home"
+                window.location.href = "http://localhost:3000/admin/Order"
             }else{
                 alert("Lỗi! không thể cập nhật")
             }

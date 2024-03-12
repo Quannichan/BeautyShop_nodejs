@@ -387,7 +387,10 @@
 				</thead>
 				<tbody>
 					<%
-						for(pro of product){ %>
+						for(pro of product){ 
+							if(pro.barcode === '0' && pro.name === 'null'){
+
+							}else{ %>
 							<tr>
 								<td >#<%= pro.id %></td>
 								<td><%= pro.name %></td>
@@ -395,7 +398,9 @@
 								<td style="text-wrap: nowrap;"><%= pro.price.toLocaleString('vi-VN') %> đ</td>
 								<td><button class="btn btn-primary" onclick="addtoOrder('<%= pro.id %>','<%= order[0].id %>')">Thêm</button></td>
 							</tr>
-						<% } 
+						<% 
+						}
+					} 
 					%>
 				</tbody>
 			</table>

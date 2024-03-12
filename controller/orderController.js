@@ -8,7 +8,7 @@ const {changeShippingName , getCustomer} = require("../models/customerModel")
 const {format} = require("date-fns")
 const {getProvice , getTransportByProvince , getDis_ProvinceByWard, getDistrict, getWard} = require("../models/locationModel")
 
-Router.get("/AllOrder" , async (req, res)=>{
+Router.get("/Order" , async (req, res)=>{
     const check = checkLogin(req)
     if(check){
         const allOrder = await getAllOrder()
@@ -29,15 +29,14 @@ Router.get("/getOrder" , async (req , res) =>{
             const id_order = req.query.order_edit
             const usname = req.session.usname
             const order = await getOrderById(id_order)
-            console.log(order)
             const order_item = await getOrder_item(id_order)
             const staff = await getAllStaff()
             const product = await getAllProduct()
+            console.log(product)
             const cities = await getProvice()
             const district = await getDistrict()
             const ward = await getWard()
             const location = await getDis_ProvinceByWard(order[0].shipping_ward_id)
-            console.log(location)
             res.render("./page/editOrder", {usname , order , order_item, staff,product , cities,district, ward , location})
         }
     }else{

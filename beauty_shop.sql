@@ -12662,3 +12662,4 @@ inner join `order` on order_item.order_id = `order`.id WHERE order_item.order_id
 
 SELECT ptp_db.order.id, ptp_db.customer.name ,ptp_db.customer.shipping_name , ptp_db.customer.mobile, ptp_db.customer.email, ptp_db.order.order_status_id, ptp_db.order.created_date, ptp_db.order.payment_method, ptp_db.order.shipping_mobile, ptp_db.order.delivered_date, ptp_db.order.shipping_fee , SUM(ptp_db.order_item.total_price) as total, ( sum(ptp_db.order_item.total_price) + ptp_db.order.shipping_fee) as toltalwfee, ptp_db.customer.housenumber_street, ptp_db.staff.name as staffname from ptp_db.order left join ptp_db.order_item on ptp_db.order.id = ptp_db.order_item.order_id inner join ptp_db.customer on ptp_db.order.customer_id = ptp_db.customer.id inner join ptp_db.staff on ptp_db.order.staff_id = ptp_db.staff.id GROUP BY ptp_db.order_item.order_id ORDER BY ptp_db.order.id DESC;
 DELETE FROM ptp_db.order WHERE id >20 AND id <= 37;
+

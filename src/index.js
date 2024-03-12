@@ -21,8 +21,11 @@ app.set("views", "view")
 const loginRoute = require("../controller/loginCotroller")
 const OrderRoute = require("../controller/orderController")
 const CustomerRoute = require("../controller/customerController")
+const ProductRoute = require("../controller/productController")
+const ImageRoute = require("../controller/imageController")
+const CateRoute = require("../controller/categoriesController")
 
-app.use("/admin" , [loginRoute,OrderRoute, CustomerRoute])
+app.use("/admin" , [loginRoute,OrderRoute, CustomerRoute, ProductRoute, ImageRoute,CateRoute])
 
 
 const server = http.createServer(app)
