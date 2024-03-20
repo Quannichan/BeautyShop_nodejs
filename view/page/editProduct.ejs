@@ -67,11 +67,16 @@
                         <option value="">Chọn danh mục</option>
                         <% 
                            for(cate of dataCate){ 
-                              if(cate.id === dataProduct[0].category_id){ %>
+                              if(cate.id === dataProduct[0].category_id){  
+                                 if(cate.name !== "null"){ %>
                                  <option selected value="<%= cate.id %>"><%= cate.name %></option>
-                              <% }else{ %>
-                                 <option value="<%= cate.id %>"><%= cate.name %></option>
                               <% }
+                           }else{ 
+                                 if(cate.name !== "null"){ %>
+                                 <option value="<%= cate.id %>"><%= cate.name %></option>
+                              <%
+                                  }
+                                 }
                             }
                         %>
                      </select>

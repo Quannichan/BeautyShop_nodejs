@@ -70,12 +70,12 @@ async function getOrderMonth(){
         const currentDate = new Date();
         var currentMonth = format(currentDate, 'MM')
         var currentYear = format(currentDate, 'yyyy')
-        sql.query(`SELECT ptp_db.order.id, ptp_db.customer.name, ptp_db.order.shipping_ward_id ,ptp_db.customer.shipping_name , ptp_db.customer.mobile, ptp_db.customer.email, ptp_db.order.order_status_id, ptp_db.order.created_date, ptp_db.order.payment_method, ptp_db.order.shipping_mobile, ptp_db.order.delivered_date, ptp_db.order.shipping_fee , SUM(ptp_db.order_item.total_price) as total, ( sum(ptp_db.order_item.total_price) + ptp_db.order.shipping_fee) as toltalwfee, ptp_db.customer.housenumber_street, ptp_db.staff.name as staffname from ptp_db.order inner join ptp_db.order_item on ptp_db.order.id = ptp_db.order_item.order_id inner join ptp_db.customer on ptp_db.order.customer_id = ptp_db.customer.id inner join ptp_db.staff on ptp_db.order.staff_id = ptp_db.staff.id WHERE YEAR(ptp_db.order.created_date) = "${currentYear}" AND YEAR(ptp_db.order.created_date) = "${currentMonth}" GROUP BY ptp_db.order_item.order_id ORDER BY ptp_db.order.id DESC` , (err, res)=>{
+        sql.query(`SELECT ptp_db.order.id, ptp_db.customer.name, ptp_db.order.shipping_ward_id ,ptp_db.customer.shipping_name , ptp_db.customer.mobile, ptp_db.customer.email, ptp_db.order.order_status_id, ptp_db.order.created_date, ptp_db.order.payment_method, ptp_db.order.shipping_mobile, ptp_db.order.delivered_date, ptp_db.order.shipping_fee , SUM(ptp_db.order_item.total_price) as total, ( sum(ptp_db.order_item.total_price) + ptp_db.order.shipping_fee) as toltalwfee, ptp_db.customer.housenumber_street, ptp_db.staff.name as staffname from ptp_db.order inner join ptp_db.order_item on ptp_db.order.id = ptp_db.order_item.order_id inner join ptp_db.customer on ptp_db.order.customer_id = ptp_db.customer.id inner join ptp_db.staff on ptp_db.order.staff_id = ptp_db.staff.id WHERE YEAR(ptp_db.order.created_date) = "${currentYear}" AND MONTH(ptp_db.order.created_date) = "${currentMonth}" GROUP BY ptp_db.order_item.order_id ORDER BY ptp_db.order.id` , (err, res)=>{
             if(err){
                 reject(err)
             }else{
                 const dataJson = JSON.parse(JSON.stringify(res))
-                console.log("success")
+                console.log(currentDate + " " + currentMonth + " " + currentYear)
                 resolve(dataJson)
             }
         })
@@ -264,7 +264,6 @@ async function deleteOrder_item(idList , idOrder){
                                     const dataJSON = JSON.parse(JSON.stringify(res3))
                                     const dataid = dataJSON[0].id
                                     console.log(dataJSON)
-                                    console.log("tới đay 1")
                                     sql.query(`INSERT INTO ptp_db.order_item VALUES (${dataid},${idOrder},0,0,0)`, (err4, res4)=>{
                                         if(err4){
                                             console.log(err4)

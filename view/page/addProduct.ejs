@@ -63,9 +63,11 @@
                      <select name="category" id="category_product" class="form-control">
                         <option selected value="">Chọn danh mục</option>
                         <%
-                        for(dataCate of dataCates){ %>
+                        for(dataCate of dataCates){
+                           if(dataCate.name !== "null"){ %>
                             <option value="<%= dataCate.id %>"><%= dataCate.name %></option>
                         <%}
+                     }
                         %>
                      </select>
                   </div>

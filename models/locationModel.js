@@ -91,6 +91,7 @@ async function getDis_ProvinceByWard(wardID){
                     const data2 = JSON.parse(JSON.stringify(res1))
                     const provinceID = data2[0].province_id
                     const data = {"distID" : districtID, "provinID" : provinceID , "wardID" : wardID}
+                    console.log(data)
                     resolve(data)
                 })
             }

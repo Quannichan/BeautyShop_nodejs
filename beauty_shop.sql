@@ -12663,3 +12663,24 @@ inner join `order` on order_item.order_id = `order`.id WHERE order_item.order_id
 SELECT ptp_db.order.id, ptp_db.customer.name ,ptp_db.customer.shipping_name , ptp_db.customer.mobile, ptp_db.customer.email, ptp_db.order.order_status_id, ptp_db.order.created_date, ptp_db.order.payment_method, ptp_db.order.shipping_mobile, ptp_db.order.delivered_date, ptp_db.order.shipping_fee , SUM(ptp_db.order_item.total_price) as total, ( sum(ptp_db.order_item.total_price) + ptp_db.order.shipping_fee) as toltalwfee, ptp_db.customer.housenumber_street, ptp_db.staff.name as staffname from ptp_db.order left join ptp_db.order_item on ptp_db.order.id = ptp_db.order_item.order_id inner join ptp_db.customer on ptp_db.order.customer_id = ptp_db.customer.id inner join ptp_db.staff on ptp_db.order.staff_id = ptp_db.staff.id GROUP BY ptp_db.order_item.order_id ORDER BY ptp_db.order.id DESC;
 DELETE FROM ptp_db.order WHERE id >20 AND id <= 37;
 
+-- Thêm dòng này giúp mình nha, execute nó giúp mình
+Insert into ptp_db.category value ( 30,'null');
+update ptp_db.product set category_id = 30;
+
+-- đoạn này ko cần thêm, mình để để test
+INSERT INTO ptp_db.order_item values 
+(55, 4 ,0,0,0 ),
+(55, 5 ,0,0,0 ),
+(55, 6 ,0,0,0 ),
+(55, 7 ,0,0,0 ),
+(55, 13 ,0,0,0 ),
+(55, 14 ,0,0,0 ),
+(55, 15 ,0,0,0 ),
+(55, 16 ,0,0,0 ),
+(55, 17 ,0,0,0 ),
+(55, 18 ,0,0,0 ),
+(55, 19 ,0,0,0 ),
+(55, 20 ,0,0,0 ),
+(55, 21 ,0,0,0 ),
+(55, 22 ,0,0,0 ),
+(55, 23 ,0,0,0 );

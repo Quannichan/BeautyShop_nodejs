@@ -38,6 +38,81 @@ async function getCutomerByID(id){
     })
 }
 
+async function deleteCustomer(id){
+    return new Promise((resolve, reject)=>{
+        sql.query(`SELECT id FROM ptp_db.order WHERE customer_id in (${id})`, (err, res)=>{
+            if(err){
+                reject(err)
+            }else{
+                const dataOrder = JSON.parse(JSON.stringify(res))
+                var orderArr = []
+                for(order of dataOrder){
+                    orderArr.push(order.id)
+                }
+                const orderStr = orderArr.join(", ")
+                if(orderArr.length){
+                    sql.query(`DELETE from ptp_db.order_item WHERE order_id in (${orderStr})`, (err1, res1)=>{
+                        if(err1){
+                            reject(err1)
+                        }else{
+                            sql.query(`DELETE from ptp_db.order WHERE id in (${orderStr})`, (err2, res2)=>{
+                                if(err2){
+                                    reject(err2)
+                                }else{
+                                    sql.query(`DELETE from ptp_db.customer WHERE id in (${id})`, (err2, res2)=>{
+                                        if(err2){
+                                            reject(err2)
+                                        }else{
+                                            resolve(true)
+                                        }
+                                    }) 
+                                }
+                            }) 
+                        }
+                    })
+                }else{
+                    sql.query(`DELETE from ptp_db.customer WHERE id in (${id})`, (err2, res2)=>{
+                        if(err2){
+                            reject(err2)
+                        }else{
+                            resolve(true)
+                        }
+                    }) 
+                }
+            }
+        })
+    })
+    
+}
+
+async function UpdateCus(idcus, name, email, mob, logFrom, wardID, address, shipName, shipmob, isActive){
+    return new Promise((resolve, reject)=>{
+        sql.query('SET FOREIGN_KEY_CHECKS = 0;')
+        sql.query(`UPDATE ptp_db.customer set name = '${name}', mobile = '${mob}', email = '${email}', login_by = '${logFrom}', ward_id = '${wardID}', shipping_name = '${shipName}', shipping_mobile = '${shipmob}', housenumber_street = '${address}', is_active = ${isActive} WHERE id = ${idcus}`, (err)=>{
+            if(err){
+                reject(err)
+            }else{
+                resolve(true)
+            }
+        })
+    })
+}
+
+async function AddCustomer(name, email, pass, mob, logFrom, wardID, address, shipName, shipmob, isActive){
+    return new Promise((resolve, reject)=>{
+        console.log("addCus")
+        sql.query(`INSERT INTO ptp_db.customer (name, mobile, email, password, login_by, ward_id, shipping_name, shipping_mobile, housenumber_street, is_active)  VALUES ('${name}','${mob}', '${email}', '${pass}', '${logFrom}', '${wardID}', '${shipName}', '${shipmob}', '${address}', ${isActive})`, (err)=>{
+            if(err){
+                reject(err)
+            }else{
+                resolve(true)
+            }
+        })
+    })
+}
+module.exports.AddCustomer = AddCustomer
 module.exports.changeShippingName = changeShippingName
 module.exports.getCustomer = getCustomer
 module.exports.getCutomerByID = getCutomerByID
+module.exports.deleteCustomer = deleteCustomer
+module.exports.UpdateCus = UpdateCus
