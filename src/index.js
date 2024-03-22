@@ -27,8 +27,9 @@ const CateRoute = require("../controller/categoriesController")
 const locationRoute = require("../controller/locationController")
 const CommentRoute = require("../controller/commentController")
 const StaffRoute = require("../controller/staffController")
+const StatusRoute = require("../controller/orderstatusController")
 
-app.use("/admin" , [loginRoute,OrderRoute, CustomerRoute, ProductRoute, ImageRoute,CateRoute,locationRoute, CommentRoute, StaffRoute])
+app.use("/admin" , [loginRoute,OrderRoute, CustomerRoute, ProductRoute, ImageRoute,CateRoute,locationRoute, CommentRoute, StaffRoute, StatusRoute])
 
 
 const server = http.createServer(app)
